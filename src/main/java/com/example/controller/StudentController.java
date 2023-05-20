@@ -19,11 +19,11 @@ public class StudentController {
     public BaseResponse register(@RequestBody RegisterStudentDTO registerStudentDTO){
         System.out.println("6666666");
 
-        return studentService.register(registerStudentDTO);
+        return studentService.register(registerStudentDTO );
     }
     @PostMapping("/login")
     public BaseResponse login(@RequestBody LoginStudentDTO loginStudentDTO){
-        return studentService.login(loginStudentDTO);
+        return studentService.login(loginStudentDTO );
     }
 
 
