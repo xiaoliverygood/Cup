@@ -31,6 +31,12 @@ public class RegisterStudentDTO {
     private String pwd;
 
     /**
+     * 手机号
+     *
+     */
+    private String phone;
+
+    /**
      * 验证码
      */
     private String code;

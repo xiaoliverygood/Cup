@@ -2,6 +2,7 @@ package com.example.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.common.BaseResponse;
+import com.example.model.dto.LoginStudentDTO;
 import com.example.model.dto.RegisterStudentDTO;
 import com.example.model.entity.Student;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,5 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 */
 public interface StudentService extends IService<Student> {
     BaseResponse register(@RequestBody RegisterStudentDTO registerStudentDTO);
+
+    BaseResponse login(@RequestBody LoginStudentDTO loginStudentDTO);
 
 }
