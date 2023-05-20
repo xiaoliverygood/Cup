@@ -1,5 +1,7 @@
 package com.example.common;
 
+import lombok.Data;
+
 /*
 *
 *   响应信息
