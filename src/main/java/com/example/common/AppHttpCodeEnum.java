@@ -1,5 +1,9 @@
 package com.example.common;
 
+/*
+*
+*   响应信息
+*/
 public enum AppHttpCodeEnum {
 // 成功
 SUCCESS(200,"操作成功"),
