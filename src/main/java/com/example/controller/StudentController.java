@@ -13,6 +13,7 @@ public class StudentController {
     @PostMapping("/register")
     public BaseResponse register(@RequestBody RegisterStudentDTO registerStudentDTO){
 
+        return null;
     }
 
 
