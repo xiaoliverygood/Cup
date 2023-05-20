@@ -22,7 +22,6 @@ public class Achievement  {
     //学生id@TableId
     @TableId
     private Integer id;
-
     //分数1
     private String english;
     //分数2
