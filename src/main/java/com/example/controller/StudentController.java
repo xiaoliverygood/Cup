@@ -24,7 +24,7 @@ public class StudentController {
         return studentService.login(loginStudentDTO );
     }
 
-    @PutMapping
+    @PutMapping("/updateInfo")
     public BaseResponse updateInfo(@RequestBody UpdateStudentDTO updateStudentDTO, HttpServletRequest httpServletRequest){
         return studentService.updateInfo(updateStudentDTO,httpServletRequest);
     }
