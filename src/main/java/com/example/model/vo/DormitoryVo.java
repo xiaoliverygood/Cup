@@ -16,7 +16,5 @@ public class DormitoryVo {
     private String violation;
     //报修
     private String repair;
-    //最大人数
-    private Integer max;
 
 }
