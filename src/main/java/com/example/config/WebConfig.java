@@ -15,7 +15,8 @@ public class WebConfig implements WebMvcConfigurer {
        registry.addInterceptor(loginInterceptor)
                .excludePathPatterns(
                "/captcha",
-                       "/findPasswordCaptcha","/Student/register","/Student/login");
+                       "/findPasswordCaptcha","/Student/register","/Student/login"
+                       ,"/Employee/register","/Employee/login");
     }
 
 }
