@@ -3,12 +3,12 @@ package com.example.controller;
 import com.example.common.BaseResponse;
 import com.example.model.dto.LoginStudentDTO;
 import com.example.model.dto.RegisterStudentDTO;
+import com.example.model.dto.UpdateStudentDTO;
 import com.example.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/Student")
@@ -23,6 +23,17 @@ public class StudentController {
     public BaseResponse login(@RequestBody LoginStudentDTO loginStudentDTO){
         return studentService.login(loginStudentDTO );
     }
+
+    @PutMapping
+    public BaseResponse updateInfo(@RequestBody UpdateStudentDTO updateStudentDTO, HttpServletRequest httpServletRequest){
+        return studentService.updateInfo(updateStudentDTO,httpServletRequest);
+    }
+
+    @GetMapping("/queryInfo")
+    public BaseResponse queryInfo(HttpServletRequest httpServletRequest){
+        return studentService.queryInfo(httpServletRequest);
+    }
+
 
 
 }
