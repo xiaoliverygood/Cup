@@ -8,6 +8,7 @@ import com.example.model.dto.LoginEmployeeDTO;
 import com.example.model.dto.RegisterEmployeeDTO;
 import com.example.model.entity.Employee;
 import com.example.model.entity.Employee;
+import com.example.model.vo.LoginEmployeeVo;
 import com.example.service.EmployeeService;
 import com.example.mapper.EmployeeMapper;
 import com.example.utils.BeanCopyUtils;
@@ -59,10 +60,15 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
 
             String token= UUID.randomUUID().toString();
 
+            Employee employee=employeeMapper.findEmployeeByEmail(loginEmployeeDTO.getEmail());
 
-            template.opsForValue().set(token,loginEmployeeDTO.getEmail());
 
-            return BaseResponse.success(token);//登录成功后返回Vo对象，里面带token
+            template.opsForValue().set(token,employee.getId().toString());
+            //
+
+            LoginEmployeeVo loginEmployeeVo=new LoginEmployeeVo(employee.getEmail(),employee.getName(),employee.getPhone(),employee.getSex(),employee.getAuthority(),token);
+
+            return BaseResponse.success(loginEmployeeVo);//登录成功后返回Vo对象，里面带token
 
 
         }else {
