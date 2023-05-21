@@ -58,7 +58,7 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
 
             template.opsForValue().set(token,loginEmployeeDTO.getEmail());
 
-            return BaseResponse.success(token);//登录成功后只返回token
+            return BaseResponse.success(token);//登录成功后返回Vo对象，里面带token
 
 
         }else {
