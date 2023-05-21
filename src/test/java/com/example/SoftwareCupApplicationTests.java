@@ -1,7 +1,5 @@
 package com.example;
 
-import com.example.mapper.StudentMapper;
-import com.example.model.entity.Student;
 import com.example.service.StudentService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

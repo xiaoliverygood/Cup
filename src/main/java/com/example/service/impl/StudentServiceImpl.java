@@ -7,7 +7,6 @@ import com.example.common.AppHttpCodeEnum;
 import com.example.common.BaseResponse;
 import com.example.mapper.DormitoryMapper;
 import com.example.mapper.LinkStuDormMapper;
-import com.example.mapper.LinkStuEmpMapper;
 import com.example.mapper.StudentMapper;
 import com.example.model.dto.LoginStudentDTO;
 import com.example.model.dto.RegisterStudentDTO;
@@ -23,6 +22,7 @@ import com.example.service.StudentService;
 import com.example.utils.BeanCopyUtils;
 import com.example.utils.CaptchaUtil;
 import com.example.utils.EmailRegularExpression;
+import com.example.utils.GetUserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -55,6 +55,8 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper,Student> imple
     private LinkStuEmpService linkStuEmpService;
     @Autowired
     private EmployeeService employeeService;
+    @Autowired
+    private GetUserUtils getUserUtils;
 
     @Override
     public BaseResponse register(RegisterStudentDTO registerStudentDTO) {
@@ -103,6 +105,8 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper,Student> imple
 
         //根据token找到对应学生
         Student student = studentMapper.selectById(Integer.valueOf(template.opsForValue().get(httpServletRequest.getHeader("token"))));
+        Integer id = getUserUtils.getId(httpServletRequest);
+
         //修改该学生的信息
         //如果DTO密码不为空,则修改密码
         if (StringUtils.hasText(updateStudentDTO.getPwd())){
@@ -132,6 +136,8 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper,Student> imple
 
         //学生个人信息**
         Student student = studentMapper.selectById(Integer.valueOf(template.opsForValue().get(httpServletRequest.getHeader("token"))));
+        Integer id1 = getUserUtils.getId(httpServletRequest);
+
         StudentVo studentVo = BeanCopyUtils.copyBean(student, StudentVo.class);
 
         //学生的id
