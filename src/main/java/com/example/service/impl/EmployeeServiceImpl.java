@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;
 
 /**
@@ -28,6 +29,8 @@ import java.util.UUID;
 public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> implements EmployeeService{
     @Autowired
     StringRedisTemplate template;
+    @Autowired
+    EmployeeMapper employeeMapper;
     @Override
     public BaseResponse register(RegisterEmployeeDTO registerEmployeeDTO) {
         String correctionCode= CaptchaUtil.EmailAndCode.get(registerEmployeeDTO.getEmail());
@@ -56,6 +59,7 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
 
             String token= UUID.randomUUID().toString();
 
+
             template.opsForValue().set(token,loginEmployeeDTO.getEmail());
 
             return BaseResponse.success(token);//登录成功后返回Vo对象，里面带token
@@ -64,6 +68,12 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         }else {
             return BaseResponse.Error(AppHttpCodeEnum.LOGIN_ERROR,loginEmployeeDTO);
         }
+    }
+
+    @Override
+    public BaseResponse showMyMessage(HttpServletRequest httpServletRequest) {
+       Employee employee=employeeMapper.findEmployeeByEmail(template.opsForValue().get(httpServletRequest.getHeader("token")));
+       return BaseResponse.success(employee);
     }
 }
 

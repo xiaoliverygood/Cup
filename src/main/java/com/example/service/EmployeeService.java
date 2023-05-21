@@ -7,6 +7,8 @@ import com.example.model.entity.Employee;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
 * @author L
 * @description 针对表【employee】的数据库操作Service
@@ -16,5 +18,7 @@ public interface EmployeeService extends IService<Employee> {
     BaseResponse register(@RequestParam RegisterEmployeeDTO registerEmployeeDTO);
 
     BaseResponse login(@RequestParam LoginEmployeeDTO loginEmployeeDTO);
+
+    BaseResponse showMyMessage(HttpServletRequest httpServletRequest);
 
 }

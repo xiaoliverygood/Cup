@@ -5,10 +5,9 @@ import com.example.model.dto.LoginEmployeeDTO;
 import com.example.model.dto.RegisterEmployeeDTO;
 import com.example.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/Employee")
@@ -22,5 +21,9 @@ public class EmployeeController {
     @PostMapping("/login")
     public BaseResponse login(@RequestParam LoginEmployeeDTO loginEmployeeDTO){
         return employeeService.login(loginEmployeeDTO);
+    }
+    @GetMapping("/showMyMessage")
+    public BaseResponse showMyMessage(HttpServletRequest httpServletRequest){
+        return employeeService.showMyMessage(httpServletRequest);
     }
 }

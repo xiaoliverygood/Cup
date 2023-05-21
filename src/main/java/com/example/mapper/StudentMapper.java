@@ -1,8 +1,11 @@
 package com.example.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.example.model.entity.Employee;
 import com.example.model.entity.Student;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 /**
 * @author L
@@ -14,6 +17,11 @@ import org.apache.ibatis.annotations.Mapper;
 */
 @Mapper
 public interface StudentMapper extends BaseMapper<Student>{
+//    @Select("select * from student where id=#{id}")
+//    public Student getStudentById(@Param("id") int id);//测试是否是mybatisplus的问题
+
+    @Select("select * from student where email=#{email}")
+    Student findStudentByEmail(@Param("email") String email);
 
 }
 

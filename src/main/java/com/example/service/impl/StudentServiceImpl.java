@@ -85,6 +85,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper,Student> imple
 
             String token= UUID.randomUUID().toString();
 
+
             template.opsForValue().set(token,loginStudentDTO.getEmail());
 
             return BaseResponse.success(token);//登录成功后只返回token
