@@ -4,7 +4,10 @@ import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 
@@ -12,6 +15,8 @@ import lombok.Data;
  */
 @TableName(value ="student")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Student implements Serializable {
     /**
      * 
@@ -77,7 +82,7 @@ public class Student implements Serializable {
     /**
      * 生源地
      */
-    private String from;
+    private String origin;
 
     /**
      * (0:不留校,1:留校)
@@ -123,7 +128,7 @@ public class Student implements Serializable {
             && (this.getMyClass() == null ? other.getMyClass() == null : this.getMyClass().equals(other.getMyClass()))
             && (this.getReawrdPunish() == null ? other.getReawrdPunish() == null : this.getReawrdPunish().equals(other.getReawrdPunish()))
             && (this.getCheckIn() == null ? other.getCheckIn() == null : this.getCheckIn().equals(other.getCheckIn()))
-            && (this.getFrom() == null ? other.getFrom() == null : this.getFrom().equals(other.getFrom()))
+            && (this.getOrigin() == null ? other.getOrigin() == null : this.getOrigin().equals(other.getOrigin()))
             && (this.getInSchool() == null ? other.getInSchool() == null : this.getInSchool().equals(other.getInSchool()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
@@ -145,7 +150,7 @@ public class Student implements Serializable {
         result = prime * result + ((getMyClass() == null) ? 0 : getMyClass().hashCode());
         result = prime * result + ((getReawrdPunish() == null) ? 0 : getReawrdPunish().hashCode());
         result = prime * result + ((getCheckIn() == null) ? 0 : getCheckIn().hashCode());
-        result = prime * result + ((getFrom() == null) ? 0 : getFrom().hashCode());
+        result = prime * result + ((getOrigin() == null) ? 0 : getOrigin().hashCode());
         result = prime * result + ((getInSchool() == null) ? 0 : getInSchool().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
@@ -170,7 +175,7 @@ public class Student implements Serializable {
         sb.append(", myClass=").append(myClass);
         sb.append(", reawrdPunish=").append(reawrdPunish);
         sb.append(", checkIn=").append(checkIn);
-        sb.append(", from=").append(from);
+        sb.append(", from=").append(origin);
         sb.append(", inSchool=").append(inSchool);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);

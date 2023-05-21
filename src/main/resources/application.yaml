@@ -7,11 +7,18 @@ spring:
     username: root
     password: abC123456!
 
-  data:
-    redis:
-      password: 123456
-      port: 6379
-      host: 8.130.43.168
+#  data:
+#    redis:
+#      password: 123456
+#      port: 6379
+#      host: 8.130.43.168
+
+  redis:
+    host: 8.130.43.168
+    port: 6379
+    password: 123456
+    database: 0
+
 
   mail:
     # 163??????smtp.163.com???????

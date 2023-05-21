@@ -1,6 +1,7 @@
 package com.example.service.impl;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.common.AppHttpCodeEnum;
 import com.example.common.BaseResponse;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+
 import java.util.UUID;
 
 /**
@@ -23,13 +25,12 @@ import java.util.UUID;
 * @description 针对表【student】的数据库操作Service实现
 * @createDate 2023-05-20 20:23:45
 */
-@Service
-public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> implements StudentService {
-    @Autowired
-    StudentMapper studentMapper;
+@Service//使用IOC容器，自己必须是容器里面，也就是注册为bean呢
+public class StudentServiceImpl extends ServiceImpl<StudentMapper,Student> implements StudentService {
+//不用注入StudentMapper是因为继承这个类已经实现了注入了，并且里面封装了一些方法，所以并不需要注入Mapper了
+
     @Autowired
     StringRedisTemplate template;
-
     @Override
     public BaseResponse register(RegisterStudentDTO registerStudentDTO) {
 
@@ -41,9 +42,9 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
 
             Student student = BeanCopyUtils.copyBean(registerStudentDTO, Student.class);
 
-            studentMapper.updateById(student);
+            this.save(student);
 
-            return BaseResponse.success(student);
+            return BaseResponse.success("注册成功，请前往登录！");
         }
         return BaseResponse.Error(AppHttpCodeEnum.REQUIRE_USERNAME,registerStudentDTO);
     }
@@ -51,7 +52,10 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
 
     @Override
     public BaseResponse login(LoginStudentDTO loginStudentDTO) {
-        boolean a=loginStudentDTO.getPwd().equals(studentMapper.selectById(loginStudentDTO.getEmail()).getPwd());
+        LambdaQueryWrapper<Student> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Student::getEmail,loginStudentDTO.getEmail());
+
+        boolean a=loginStudentDTO.getPwd().equals(this.getOne(queryWrapper).getPwd());
         if(EmailRegularExpression.RegularEmailPattern(loginStudentDTO.getEmail())&&a){
 
             String token= UUID.randomUUID().toString();

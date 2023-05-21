@@ -17,8 +17,6 @@ public class StudentController {
     StudentService studentService;
     @PostMapping("/register")
     public BaseResponse register(@RequestBody RegisterStudentDTO registerStudentDTO){
-        System.out.println("6666666");
-
         return studentService.register(registerStudentDTO );
     }
     @PostMapping("/login")
