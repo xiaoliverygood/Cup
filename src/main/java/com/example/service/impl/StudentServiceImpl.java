@@ -85,8 +85,9 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper,Student> imple
 
             String token= UUID.randomUUID().toString();
 
+            Student student=studentMapper.findStudentByEmail(loginStudentDTO.getEmail());
 
-            template.opsForValue().set(token,loginStudentDTO.getEmail());
+            template.opsForValue().set(token,student.getId().toString());
 
             return BaseResponse.success(token);//登录成功后只返回token
 
@@ -101,7 +102,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper,Student> imple
         //updateById()
 
         //根据token找到对应学生
-        Student student = studentMapper.selectById(template.opsForValue().get(httpServletRequest.getHeader("token")));
+        Student student = studentMapper.selectById(Integer.valueOf(template.opsForValue().get(httpServletRequest.getHeader("token"))));
         //修改该学生的信息
         //如果DTO密码不为空,则修改密码
         if (StringUtils.hasText(updateStudentDTO.getPwd())){
@@ -130,7 +131,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper,Student> imple
 
 
         //学生个人信息**
-        Student student = studentMapper.selectById(template.opsForValue().get(httpServletRequest.getHeader("token")));
+        Student student = studentMapper.selectById(Integer.valueOf(template.opsForValue().get(httpServletRequest.getHeader("token"))));
         StudentVo studentVo = BeanCopyUtils.copyBean(student, StudentVo.class);
 
         //学生的id
