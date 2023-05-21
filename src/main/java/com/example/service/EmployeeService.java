@@ -3,6 +3,7 @@ package com.example.service;
 import com.example.common.BaseResponse;
 import com.example.model.dto.LoginEmployeeDTO;
 import com.example.model.dto.RegisterEmployeeDTO;
+import com.example.model.dto.UpdateStudentMessageDTO;
 import com.example.model.entity.Employee;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,5 +21,7 @@ public interface EmployeeService extends IService<Employee> {
     BaseResponse login(@RequestParam LoginEmployeeDTO loginEmployeeDTO);
 
     BaseResponse showMyMessage(HttpServletRequest httpServletRequest);
+
+    BaseResponse updateStudentMessage(@RequestParam UpdateStudentMessageDTO updateStudentMessageDTO);
 
 }

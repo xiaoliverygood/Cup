@@ -1,16 +1,20 @@
 package com.example.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.common.AppHttpCodeEnum;
 import com.example.common.BaseResponse;
 import com.example.model.dto.LoginEmployeeDTO;
 import com.example.model.dto.RegisterEmployeeDTO;
+import com.example.model.dto.UpdateStudentMessageDTO;
 import com.example.model.entity.Employee;
 import com.example.model.entity.Employee;
+import com.example.model.entity.Student;
 import com.example.model.vo.LoginEmployeeVo;
 import com.example.service.EmployeeService;
 import com.example.mapper.EmployeeMapper;
+import com.example.service.StudentService;
 import com.example.utils.BeanCopyUtils;
 import com.example.utils.CaptchaUtil;
 import com.example.utils.EmailRegularExpression;
@@ -32,6 +36,8 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     StringRedisTemplate template;
     @Autowired
     EmployeeMapper employeeMapper;
+    @Autowired
+    StudentService studentService;
     @Override
     public BaseResponse register(RegisterEmployeeDTO registerEmployeeDTO) {
         String correctionCode= CaptchaUtil.EmailAndCode.get(registerEmployeeDTO.getEmail());
@@ -80,6 +86,25 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     public BaseResponse showMyMessage(HttpServletRequest httpServletRequest) {
        Employee employee=employeeMapper.findEmployeeByEmail(template.opsForValue().get(httpServletRequest.getHeader("token")));
        return BaseResponse.success(employee);
+    }
+
+    @Override
+    public BaseResponse updateStudentMessage(UpdateStudentMessageDTO updateStudentMessageDTO) {
+        Student student=studentService.getById(updateStudentMessageDTO.getStudentId());
+
+        student.setInSchool(1);
+
+        student.setMyClass(updateStudentMessageDTO.getClassName());
+
+        student.setOrigin(updateStudentMessageDTO.getOrigin());
+
+        student.setCheckIn(1);
+
+        student.setSpeciality(updateStudentMessageDTO.getSpeciality());
+
+        studentService.updateById(student);//迎新更新工作
+
+        return BaseResponse.success(student);
     }
 }
 
