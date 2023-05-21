@@ -89,7 +89,7 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     }
 
     @Override
-    public BaseResponse updateStudentMessage(UpdateStudentMessageDTO updateStudentMessageDTO) {
+    public BaseResponse updateStudentMessage(HttpServletRequest httpServletRequest,UpdateStudentMessageDTO updateStudentMessageDTO) {
         Student student=studentService.getById(updateStudentMessageDTO.getStudentId());
 
         student.setInSchool(1);
@@ -105,6 +105,12 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         studentService.updateById(student);//迎新更新工作
 
         return BaseResponse.success(student);
+    }
+
+//未完成，待商量
+    @Override
+    public BaseResponse showStudentScore(HttpServletRequest httpServletRequest, Integer studentId) {
+       return null;
     }
 }
 

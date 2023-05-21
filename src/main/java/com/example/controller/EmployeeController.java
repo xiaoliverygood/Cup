@@ -16,11 +16,11 @@ public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
     @PostMapping("/register")
-    public BaseResponse register(@RequestParam RegisterEmployeeDTO registerEmployeeDTO){
+    public BaseResponse register(@RequestBody RegisterEmployeeDTO registerEmployeeDTO){
         return employeeService.register(registerEmployeeDTO);
     }
     @PostMapping("/login")
-    public BaseResponse login(@RequestParam LoginEmployeeDTO loginEmployeeDTO){
+    public BaseResponse login(@RequestBody LoginEmployeeDTO loginEmployeeDTO){
         return employeeService.login(loginEmployeeDTO);
     }
     @GetMapping("/showMyMessage")
@@ -28,10 +28,16 @@ public class EmployeeController {
         return employeeService.showMyMessage(httpServletRequest);
     }
 //    ----------------------------辅导员的功能---------------------------------
+    //修改学生档案信息
     @PutMapping("/updateStudentMessage")
-    public BaseResponse updateStudentMessage(@RequestParam UpdateStudentMessageDTO updateStudentMessageDTO){
-        return employeeService.updateStudentMessage(updateStudentMessageDTO);
+    public BaseResponse updateStudentMessage(HttpServletRequest httpServletRequest,@RequestBody UpdateStudentMessageDTO updateStudentMessageDTO){
+        return employeeService.updateStudentMessage(httpServletRequest,updateStudentMessageDTO);
     }
+    //查询某学生成绩
 
+    @GetMapping("/showStudentScore")
+    public BaseResponse showStudentScore(HttpServletRequest httpServletRequest, Integer studentId){
+        return employeeService.showStudentScore(httpServletRequest,studentId);
+    }
 
 }

@@ -21,7 +21,14 @@ public interface EmployeeService extends IService<Employee> {
     BaseResponse login(@RequestParam LoginEmployeeDTO loginEmployeeDTO);
 
     BaseResponse showMyMessage(HttpServletRequest httpServletRequest);
+    /*
+    迎新工作
+     */
 
-    BaseResponse updateStudentMessage(@RequestParam UpdateStudentMessageDTO updateStudentMessageDTO);
+    BaseResponse updateStudentMessage(HttpServletRequest httpServletRequest,@RequestParam UpdateStudentMessageDTO updateStudentMessageDTO);
+/*
+查找某个学生的成绩
+ */
+    BaseResponse showStudentScore(HttpServletRequest httpServletRequest, Integer studentId);
 
 }
