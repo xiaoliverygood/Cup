@@ -1,5 +1,6 @@
 package com.example.mapper;
 
+import com.example.model.entity.Dormitory;
 import com.example.model.entity.Employee;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.model.entity.Student;
@@ -24,6 +25,13 @@ public interface EmployeeMapper extends BaseMapper<Employee> {
 
     @Select("select student.* FROM link_stu_emp LEFT JOIN student ON student.id=link_stu_emp.stu_id WHERE link_stu_emp.emp_id=#{teacherId}")
     List<Student> findStudentByTeacherId(@Param("teacherId") Integer teacherId);
+
+    /*
+    多表查询，通过学生的id号查到宿舍号（使用外连接）
+     */
+
+    @Select("SELECT dormitory.* FROM link_stu_dorm LEFT JOIN dormitory ON dormitory.id=link_stu_dorm.dorm_id WHERE stu_id=#{studentId}")
+    Dormitory findDormitoryByStudentId(@Param("studentId") Integer studentId);
 }
 
 

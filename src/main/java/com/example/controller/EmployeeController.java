@@ -81,6 +81,15 @@ public class EmployeeController {
 
     }
 
+    /*
+    查看留校人员
+     */
+    @GetMapping("/getLeave")
+    public BaseResponse getLeaveAllStudent(HttpServletRequest httpServletRequest){
+        return employeeService.getLeaveAllStudent(httpServletRequest);
+
+    }
+
 
 
 }

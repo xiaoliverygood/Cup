@@ -210,12 +210,19 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     根据学生学号id查询宿舍
      */
 
-    /*
-    还没完成，多表联查
-     */
     @Override
     public BaseResponse getDormitoryByStudentId(HttpServletRequest httpServletRequest, Integer studentId) {
-        return null;
+        Dormitory dormitoryByStudentId = employeeMapper.findDormitoryByStudentId(studentId);
+        return BaseResponse.success(dormitoryByStudentId);
+    }
+
+    /*
+    查看留校的学生名单
+     */
+//没开发完
+    @Override
+    public BaseResponse getLeaveAllStudent(HttpServletRequest httpServletRequest) {
+       return null;
     }
 }
 

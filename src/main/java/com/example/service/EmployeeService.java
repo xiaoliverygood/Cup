@@ -62,4 +62,10 @@ public interface EmployeeService extends IService<Employee> {
 
     BaseResponse getDormitoryByStudentId(HttpServletRequest httpServletRequest,Integer studentId);
 
+    /*
+    查看学生留校的名单
+     */
+
+    BaseResponse getLeaveAllStudent(HttpServletRequest httpServletRequest);
+
 }
