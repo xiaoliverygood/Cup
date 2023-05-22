@@ -12,6 +12,7 @@ import com.example.model.entity.Employee;
 import com.example.model.entity.Employee;
 import com.example.model.entity.Student;
 import com.example.model.vo.LoginEmployeeVo;
+import com.example.model.vo.StudentCardVo;
 import com.example.service.EmployeeService;
 import com.example.mapper.EmployeeMapper;
 import com.example.service.StudentService;
@@ -223,6 +224,16 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     public BaseResponse getLeaveAllStudent(HttpServletRequest httpServletRequest) {
       List<Student> students =employeeMapper.findInSchoolStudent();
       return BaseResponse.success(students);
+    }
+
+    @Override
+    public BaseResponse queryStudentById(Integer id) {
+
+        Student student = studentService.getById(id);
+
+        StudentCardVo studentCardVo = BeanCopyUtils.copyBean(student, StudentCardVo.class);
+
+        return BaseResponse.success(studentCardVo);
     }
 }
 

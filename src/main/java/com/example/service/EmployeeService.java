@@ -68,4 +68,5 @@ public interface EmployeeService extends IService<Employee> {
 
     BaseResponse getLeaveAllStudent(HttpServletRequest httpServletRequest);
 
+    BaseResponse queryStudentById(Integer id);
 }

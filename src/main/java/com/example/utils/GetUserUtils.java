@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 public class GetUserUtils {
     @Autowired
-    StringRedisTemplate template;
+    private StringRedisTemplate template;
 
     public  Integer getId(HttpServletRequest httpServletRequest){
         return Integer.valueOf(template.opsForValue().get(httpServletRequest.getHeader("token")));
