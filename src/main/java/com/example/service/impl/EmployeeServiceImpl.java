@@ -16,15 +16,16 @@ import com.example.model.vo.StudentCardVo;
 import com.example.service.EmployeeService;
 import com.example.mapper.EmployeeMapper;
 import com.example.service.StudentService;
-import com.example.utils.BeanCopyUtils;
-import com.example.utils.CaptchaUtil;
-import com.example.utils.EmailRegularExpression;
-import com.example.utils.GetUserUtils;
+import com.example.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -255,8 +256,19 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
 
         return BaseResponse.success(studentCardVo);
     }
+
+    @Override
+    public BaseResponse updateStudent(UpdateStudentByEmpDTO updateStudentByEmpDTO, HttpServletRequest httpServletRequest) {
+
+        Student student = BeanCopyUtils.copyBean(updateStudentByEmpDTO, Student.class);
+
+        Date date = new Date();
+
+        student.setUpdateTime(date);
+
+        studentService.updateById(student);
+
+        return BaseResponse.success("修改成功");
+    }
+
 }
-
-
-
-

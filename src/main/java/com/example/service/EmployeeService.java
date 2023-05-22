@@ -74,4 +74,6 @@ public interface EmployeeService extends IService<Employee> {
     BaseResponse scoreCounselor(HttpServletRequest httpServletRequest,Integer counselorId,Double score);
 
     BaseResponse queryStudentById(Integer id);
+
+    BaseResponse updateStudent(UpdateStudentByEmpDTO updateStudentByEmpDTO, HttpServletRequest httpServletRequest);
 }

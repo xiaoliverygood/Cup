@@ -110,4 +110,11 @@ public class EmployeeController {
         return employeeService.queryStudentById(id);
     }
 
+    @PutMapping("/updateStudent")
+    public BaseResponse updateStudent(@RequestBody UpdateStudentByEmpDTO updateStudentByEmpDTO, HttpServletRequest httpServletRequest){
+        return employeeService.updateStudent(updateStudentByEmpDTO,httpServletRequest);
+    }
+
+
+
 }
