@@ -68,5 +68,10 @@ public interface EmployeeService extends IService<Employee> {
 
     BaseResponse getLeaveAllStudent(HttpServletRequest httpServletRequest);
 
+    /*
+    给辅导员评分
+     */
+    BaseResponse scoreCounselor(HttpServletRequest httpServletRequest,Integer counselorId,Double score);
+
     BaseResponse queryStudentById(Integer id);
 }

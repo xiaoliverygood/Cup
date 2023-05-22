@@ -213,7 +213,9 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
 
     @Override
     public BaseResponse getDormitoryByStudentId(HttpServletRequest httpServletRequest, Integer studentId) {
+
         Dormitory dormitoryByStudentId = employeeMapper.findDormitoryByStudentId(studentId);
+
         return BaseResponse.success(dormitoryByStudentId);
     }
 
@@ -222,8 +224,26 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
      */
     @Override
     public BaseResponse getLeaveAllStudent(HttpServletRequest httpServletRequest) {
+
       List<Student> students =employeeMapper.findInSchoolStudent();
+
       return BaseResponse.success(students);
+    }
+
+    /*
+    给辅导员评分
+     */
+
+    @Override
+    public BaseResponse scoreCounselor(HttpServletRequest httpServletRequest, Integer counselorId,Double score) {
+
+        Employee counselor = this.getById(counselorId);
+
+        counselor.setScore(score);
+
+        this.updateById(counselor);
+
+        return BaseResponse.success(counselor);//还没有脱敏
     }
 
     @Override

@@ -60,6 +60,7 @@ public class EmployeeController {
      */
     @PutMapping("/repair")
     public BaseResponse repair(HttpServletRequest httpServletRequest,@RequestBody RepairSupervisorDTO repairEmployeeDTO){
+
         return employeeService.repair(httpServletRequest,repairEmployeeDTO);
     }
 
@@ -68,6 +69,7 @@ public class EmployeeController {
      */
     @PutMapping("/violation")
     public BaseResponse violation(HttpServletRequest httpServletRequest,@RequestBody ViolationSupervisorDTO violationEmployeeDTO){
+
         return employeeService.violation(httpServletRequest,violationEmployeeDTO);
     }
 
@@ -77,6 +79,7 @@ public class EmployeeController {
 //
     @GetMapping("/getDormitory")
     public BaseResponse getDormitoryByStudentId(HttpServletRequest httpServletRequest,Integer studentId){
+
         return employeeService.getDormitoryByStudentId(httpServletRequest,studentId);
 
     }
@@ -86,10 +89,20 @@ public class EmployeeController {
      */
     @GetMapping("/getLeave")
     public BaseResponse getLeaveAllStudent(HttpServletRequest httpServletRequest){
+
         return employeeService.getLeaveAllStudent(httpServletRequest);
 
     }
+//    ----------------------院系负责人----------------------------
 
+    /*
+    给辅导员评分
+     */
+    @PutMapping("/scoreCounselor")
+    public BaseResponse scoreCounselor(HttpServletRequest httpServletRequest,Integer counselorId,Double score){
+
+        return employeeService.scoreCounselor(httpServletRequest,counselorId,score);
+    }
 
     //----------------------学工管理器-----------------------------
     @GetMapping("/queryStudentById")
