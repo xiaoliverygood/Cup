@@ -76,4 +76,6 @@ public interface EmployeeService extends IService<Employee> {
     BaseResponse queryStudentById(Integer id);
 
     BaseResponse updateStudent(UpdateStudentByEmpDTO updateStudentByEmpDTO, HttpServletRequest httpServletRequest);
+
+    BaseResponse queryStudentList(Integer pageNum, Integer pageSize);
 }

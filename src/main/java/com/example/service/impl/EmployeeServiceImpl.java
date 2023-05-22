@@ -1,14 +1,15 @@
 package com.example.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.common.AppHttpCodeEnum;
 import com.example.common.BaseResponse;
 import com.example.mapper.DormitoryMapper;
+import com.example.mapper.StudentMapper;
 import com.example.model.dto.*;
 import com.example.model.entity.Dormitory;
-import com.example.model.entity.Employee;
 import com.example.model.entity.Employee;
 import com.example.model.entity.Student;
 import com.example.model.vo.LoginEmployeeVo;
@@ -22,9 +23,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -44,7 +42,8 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     StudentService studentService;
     @Autowired
     GetUserUtils getUserUtils;
-
+    @Autowired
+    StudentMapper studentMapper;
     @Autowired
     DormitoryMapper dormitoryMapper;
 
@@ -270,6 +269,20 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         studentService.updateById(student);
 
         return BaseResponse.success("修改成功");
+    }
+
+    @Override
+    public BaseResponse queryStudentList(Integer pageNum, Integer pageSize) {
+
+        //分页查询
+        Page<Student> page = new Page<>(pageNum,pageSize);
+
+        IPage<Student> studentPage = studentMapper.selectPage(page,null); // 执行分页查询
+
+        List<Student> studentList = studentPage.getRecords(); // 获取查询结果列表
+        //long total = studentPage.getTotal(); // 获取总记录数
+
+        return BaseResponse.success(studentList);
     }
 
 }

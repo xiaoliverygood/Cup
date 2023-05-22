@@ -115,6 +115,8 @@ public class EmployeeController {
         return employeeService.updateStudent(updateStudentByEmpDTO,httpServletRequest);
     }
 
-
-
+    @GetMapping("/queryStudentList")
+    public BaseResponse queryStudentList(Integer pageNum, Integer pageSize){
+        return employeeService.queryStudentList(pageNum,pageSize);
+    }
 }
