@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.common.BaseResponse;
+import com.example.model.dto.FindPasswordEmployeeDTO;
 import com.example.model.dto.LoginEmployeeDTO;
 import com.example.model.dto.RegisterEmployeeDTO;
 import com.example.model.dto.UpdateStudentMessageDTO;
@@ -38,6 +39,21 @@ public class EmployeeController {
     @GetMapping("/showStudentScore")
     public BaseResponse showStudentScore(HttpServletRequest httpServletRequest, Integer studentId){
         return employeeService.showStudentScore(httpServletRequest,studentId);
+    }
+    /*
+    找回密码
+     */
+
+    @PutMapping("/findPassword")
+    public BaseResponse findPassword(@RequestBody FindPasswordEmployeeDTO findPasswordDTO){
+        return employeeService.findPassword(findPasswordDTO);
+    }
+    /*
+    查询我学生名单
+     */
+    @GetMapping("/findMyStudent")
+    public BaseResponse findMyStudent(HttpServletRequest httpServletRequest){
+        return employeeService.findMyStudent(httpServletRequest);
     }
 
 }

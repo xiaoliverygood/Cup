@@ -1,11 +1,13 @@
 package com.example.service;
 
 import com.example.common.BaseResponse;
+import com.example.model.dto.FindPasswordEmployeeDTO;
 import com.example.model.dto.LoginEmployeeDTO;
 import com.example.model.dto.RegisterEmployeeDTO;
 import com.example.model.dto.UpdateStudentMessageDTO;
 import com.example.model.entity.Employee;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,5 +32,15 @@ public interface EmployeeService extends IService<Employee> {
 查找某个学生的成绩
  */
     BaseResponse showStudentScore(HttpServletRequest httpServletRequest, Integer studentId);
+    /*
+    找回密码
+     */
+
+    BaseResponse findPassword(@RequestBody FindPasswordEmployeeDTO findPasswordDTO);
+
+    /*
+    查询我的学生
+     */
+    BaseResponse findMyStudent(HttpServletRequest httpServletRequest);
 
 }
