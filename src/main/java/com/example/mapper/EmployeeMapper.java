@@ -32,6 +32,12 @@ public interface EmployeeMapper extends BaseMapper<Employee> {
 
     @Select("SELECT dormitory.* FROM link_stu_dorm LEFT JOIN dormitory ON dormitory.id=link_stu_dorm.dorm_id WHERE stu_id=#{studentId}")
     Dormitory findDormitoryByStudentId(@Param("studentId") Integer studentId);
+
+    /*
+    查找留在学校的学生
+     */
+    @Select("SELECT * FROM student WHERE in_school=1")
+    List<Student> findInSchoolStudent();
 }
 
 
