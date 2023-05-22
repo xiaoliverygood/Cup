@@ -1,10 +1,7 @@
 package com.example.service;
 
 import com.example.common.BaseResponse;
-import com.example.model.dto.FindPasswordEmployeeDTO;
-import com.example.model.dto.LoginEmployeeDTO;
-import com.example.model.dto.RegisterEmployeeDTO;
-import com.example.model.dto.UpdateStudentMessageDTO;
+import com.example.model.dto.*;
 import com.example.model.entity.Employee;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +20,8 @@ public interface EmployeeService extends IService<Employee> {
     BaseResponse login(@RequestParam LoginEmployeeDTO loginEmployeeDTO);
 
     BaseResponse showMyMessage(HttpServletRequest httpServletRequest);
+
+//    ------------辅导员------------
     /*
     迎新工作
      */
@@ -42,5 +41,14 @@ public interface EmployeeService extends IService<Employee> {
     查询我的学生
      */
     BaseResponse findMyStudent(HttpServletRequest httpServletRequest);
+
+
+//    ---------------------宿舍管理员------------------------
+
+    /*
+    宿舍管理员：报修宿舍
+     */
+
+    BaseResponse repair(HttpServletRequest httpServletRequest,@RequestBody RepairSupervisorDTO repairEmployeeDTO);
 
 }

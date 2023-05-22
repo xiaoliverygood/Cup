@@ -5,10 +5,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.common.AppHttpCodeEnum;
 import com.example.common.BaseResponse;
-import com.example.model.dto.FindPasswordEmployeeDTO;
-import com.example.model.dto.LoginEmployeeDTO;
-import com.example.model.dto.RegisterEmployeeDTO;
-import com.example.model.dto.UpdateStudentMessageDTO;
+import com.example.mapper.DormitoryMapper;
+import com.example.model.dto.*;
+import com.example.model.entity.Dormitory;
 import com.example.model.entity.Employee;
 import com.example.model.entity.Employee;
 import com.example.model.entity.Student;
@@ -43,6 +42,9 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     StudentService studentService;
     @Autowired
     GetUserUtils getUserUtils;
+
+    @Autowired
+    DormitoryMapper dormitoryMapper;
 
     @Override
     public BaseResponse register(RegisterEmployeeDTO registerEmployeeDTO) {
@@ -152,6 +154,31 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
        List<Student> studentList=employeeMapper.findStudentByTeacherId(employee.getId());//通过我的id查询我的学生
 
         return BaseResponse.success(studentList);
+    }
+
+//    -------宿舍管理员---------------
+
+/*
+宿舍报修
+ */
+    @Override
+    public BaseResponse repair(HttpServletRequest httpServletRequest, RepairSupervisorDTO repairEmployeeDTO) {
+
+        Dormitory dormitory = dormitoryMapper.selectById(repairEmployeeDTO.getIdDormitory());
+
+        if(dormitory.getRepair().isEmpty()) {
+
+            dormitory.setRepair(repairEmployeeDTO.getRepairContent());
+
+        }else {
+
+            String beforeContent = dormitory.getRepair();
+
+            dormitory.setRepair(beforeContent  + repairEmployeeDTO.getRepairContent());
+        }
+        dormitoryMapper.updateById(dormitory);
+
+        return BaseResponse.success(dormitory);
     }
 }
 

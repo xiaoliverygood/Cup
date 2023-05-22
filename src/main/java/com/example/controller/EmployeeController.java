@@ -1,10 +1,7 @@
 package com.example.controller;
 
 import com.example.common.BaseResponse;
-import com.example.model.dto.FindPasswordEmployeeDTO;
-import com.example.model.dto.LoginEmployeeDTO;
-import com.example.model.dto.RegisterEmployeeDTO;
-import com.example.model.dto.UpdateStudentMessageDTO;
+import com.example.model.dto.*;
 import com.example.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -55,5 +52,17 @@ public class EmployeeController {
     public BaseResponse findMyStudent(HttpServletRequest httpServletRequest){
         return employeeService.findMyStudent(httpServletRequest);
     }
+
+
+//    ----------------------宿舍管理员-----------------------------
+    /*
+    宿舍报修：修改宿舍表保修字段
+     */
+    @PutMapping("/repair")
+    public BaseResponse repair(HttpServletRequest httpServletRequest,@RequestBody RepairSupervisorDTO repairEmployeeDTO){
+        return employeeService.repair(httpServletRequest,repairEmployeeDTO);
+    }
+
+
 
 }
