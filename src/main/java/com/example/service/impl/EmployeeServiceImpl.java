@@ -180,6 +180,43 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
 
         return BaseResponse.success(dormitory);
     }
+
+    /*
+    宿舍违纪情况
+     */
+
+    @Override
+    public BaseResponse violation(HttpServletRequest httpServletRequest, ViolationSupervisorDTO violationEmployeeDTO) {
+
+        Dormitory dormitory = dormitoryMapper.selectById(violationEmployeeDTO.getIdDormitory());
+
+        if (dormitory.getViolation().isEmpty()) {
+
+            dormitory.setViolation(violationEmployeeDTO.getViolationStatus());
+
+            dormitoryMapper.updateById(dormitory);
+
+            return BaseResponse.success(dormitory);
+        }
+
+        dormitory.setViolation(violationEmployeeDTO.getViolationStatus()+dormitory.getViolation());
+
+        dormitoryMapper.updateById(dormitory);
+
+        return BaseResponse.success(dormitory);
+    }
+
+    /*
+    根据学生学号id查询宿舍
+     */
+
+    /*
+    还没完成，多表联查
+     */
+    @Override
+    public BaseResponse getDormitoryByStudentId(HttpServletRequest httpServletRequest, Integer studentId) {
+        return null;
+    }
 }
 
 

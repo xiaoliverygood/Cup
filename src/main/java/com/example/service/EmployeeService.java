@@ -51,4 +51,15 @@ public interface EmployeeService extends IService<Employee> {
 
     BaseResponse repair(HttpServletRequest httpServletRequest,@RequestBody RepairSupervisorDTO repairEmployeeDTO);
 
+    /*
+    违纪情况登记
+     */
+    BaseResponse violation(HttpServletRequest httpServletRequest,@RequestBody ViolationSupervisorDTO violationEmployeeDTO);
+
+    /*
+    根据学生id查询宿舍
+     */
+
+    BaseResponse getDormitoryByStudentId(HttpServletRequest httpServletRequest,Integer studentId);
+
 }

@@ -63,6 +63,24 @@ public class EmployeeController {
         return employeeService.repair(httpServletRequest,repairEmployeeDTO);
     }
 
+    /*
+    违纪登记：宿舍表违纪字段
+     */
+    @PutMapping("/violation")
+    public BaseResponse violation(HttpServletRequest httpServletRequest,@RequestBody ViolationSupervisorDTO violationEmployeeDTO){
+        return employeeService.violation(httpServletRequest,violationEmployeeDTO);
+    }
+
+    /*
+    查看学生住宿信息
+     */
+//
+    @GetMapping("/getDormitory")
+    public BaseResponse getDormitoryByStudentId(HttpServletRequest httpServletRequest,Integer studentId){
+        return employeeService.getDormitoryByStudentId(httpServletRequest,studentId);
+
+    }
+
 
 
 }
