@@ -34,8 +34,8 @@ public class EmployeeController {
     //查询某学生成绩
 
     @GetMapping("/showStudentScore")
-    public BaseResponse showStudentScore(HttpServletRequest httpServletRequest, Integer studentId){
-        return employeeService.showStudentScore(httpServletRequest,studentId);
+    public BaseResponse showStudentScore(HttpServletRequest httpServletRequest, Integer studentId,String tableName,String subjectName){
+        return employeeService.showStudentScore(httpServletRequest,studentId,tableName,subjectName);
     }
     /*
     找回密码

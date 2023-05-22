@@ -30,7 +30,7 @@ public interface EmployeeService extends IService<Employee> {
 /*
 查找某个学生的成绩
  */
-    BaseResponse showStudentScore(HttpServletRequest httpServletRequest, Integer studentId);
+    BaseResponse showStudentScore(HttpServletRequest httpServletRequest, Integer studentId,String tableName,String subjectName);
     /*
     找回密码
      */

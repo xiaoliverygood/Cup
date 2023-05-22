@@ -119,10 +119,11 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         return BaseResponse.success(student);
     }
 
-    //未完成，待商量
+    //查询单科成绩
+    //未完成
     @Override
-    public BaseResponse showStudentScore(HttpServletRequest httpServletRequest, Integer studentId) {
-        return null;
+    public BaseResponse showStudentScore(HttpServletRequest httpServletRequest, Integer studentId,String tableName,String subjectName) {
+        return BaseResponse.success("null");
     }
 
     @Override

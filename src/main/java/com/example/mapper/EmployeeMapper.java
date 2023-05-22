@@ -38,6 +38,14 @@ public interface EmployeeMapper extends BaseMapper<Employee> {
      */
     @Select("SELECT * FROM student WHERE in_school=1")
     List<Student> findInSchoolStudent();
+
+
+    /*
+    查询单科成绩，指定成绩表
+     */
+
+//    @Select("SELECT #{subjectName} FROM #{tableName} WHERE id=#{studentId}")
+//    List<String> findSubjectScoreByStudentId(@Param("studentId") Integer studentId, @Param("tableName") String tableName, @Param("subjectName") String subjectName);
 }
 
 
