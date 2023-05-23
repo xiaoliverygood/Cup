@@ -1,14 +1,15 @@
 package com.example.mapper;
 
+import com.example.model.entity.CourseBeUseSeearch;
 import com.example.model.entity.Dormitory;
 import com.example.model.entity.Employee;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.model.entity.Student;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
-import javax.mail.MailSessionDefinition;
 import java.util.List;
 
 /**
@@ -39,13 +40,26 @@ public interface EmployeeMapper extends BaseMapper<Employee> {
     @Select("SELECT * FROM student WHERE in_school=1")
     List<Student> findInSchoolStudent();
 
+    /*
+    添加课程
+     */
+    @Insert("INSERT INTO course (class_name) VALUES (#{className})")
+    void addCourse(@Param("className") String className);
+
 
     /*
-    查询单科成绩，指定成绩表
+    根据学号查询成绩，
      */
 
-//    @Select("SELECT #{subjectName} FROM #{tableName} WHERE id=#{studentId}")
-//    List<String> findSubjectScoreByStudentId(@Param("studentId") Integer studentId, @Param("tableName") String tableName, @Param("subjectName") String subjectName);
+    @Select("SELECT course.class_name,link_stu_course.student_score FROM link_stu_course LEFT JOIN course ON course.id=link_stu_course.class_id WHERE link_stu_course.student_id=#{studentId}")
+    List<CourseBeUseSeearch> getCourseScoreList(@Param("studentId")Integer studentId);
+
+    /*
+    通过学生id，课程id进行课程的添加绑定
+     */
+
+    @Insert("INSERT INTO link_stu_course( `class_id`, `student_id`, `student_score`) VALUES ( #{classId}, #{studentId},null)")
+    Void insertStudentLinkCourse(@Param("classId") Integer classId, @Param("studentId") Integer studentId);
 }
 
 

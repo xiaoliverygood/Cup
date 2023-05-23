@@ -30,7 +30,7 @@ public interface EmployeeService extends IService<Employee> {
 /*
 查找某个学生的成绩
  */
-    BaseResponse showStudentScore(HttpServletRequest httpServletRequest, Integer studentId,String tableName,String subjectName);
+    BaseResponse showStudentScore(HttpServletRequest httpServletRequest, Integer studentId);
     /*
     找回密码
      */
@@ -73,9 +73,20 @@ public interface EmployeeService extends IService<Employee> {
      */
     BaseResponse scoreCounselor(HttpServletRequest httpServletRequest,Integer counselorId,Double score);
 
+
+    /*
+    院系负责人添加课程
+     */
+    BaseResponse addCourse(HttpServletRequest httpServletRequest,String courseName);
     BaseResponse queryStudentById(Integer id);
 
     BaseResponse updateStudent(UpdateStudentByEmpDTO updateStudentByEmpDTO, HttpServletRequest httpServletRequest);
 
     BaseResponse queryStudentList(Integer pageNum, Integer pageSize);
+
+    /*
+    通过学生id，课程id进行建立联系，也就是学生添加课程
+     */
+
+    BaseResponse importCoursesByStudentId(HttpServletRequest httpServletRequest,Integer studentId,Integer courseId);
 }

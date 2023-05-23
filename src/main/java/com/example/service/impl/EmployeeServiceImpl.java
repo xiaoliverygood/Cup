@@ -9,6 +9,7 @@ import com.example.common.BaseResponse;
 import com.example.mapper.DormitoryMapper;
 import com.example.mapper.StudentMapper;
 import com.example.model.dto.*;
+import com.example.model.entity.CourseBeUseSeearch;
 import com.example.model.entity.Dormitory;
 import com.example.model.entity.Employee;
 import com.example.model.entity.Student;
@@ -118,11 +119,30 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         return BaseResponse.success(student);
     }
 
-    //查询单科成绩
-    //未完成
+    //查询所有科目以及成绩
     @Override
-    public BaseResponse showStudentScore(HttpServletRequest httpServletRequest, Integer studentId,String tableName,String subjectName) {
-        return BaseResponse.success("null");
+    public BaseResponse showStudentScore(HttpServletRequest httpServletRequest, Integer studentId) {
+        List<CourseBeUseSeearch> courseBeUseSeearchScoreList = employeeMapper.getCourseScoreList(studentId);
+        return BaseResponse.success(courseBeUseSeearchScoreList);
+    }
+
+    /*
+    老师通过学生id进行课程绑定
+     */
+
+    @Override
+    public BaseResponse importCoursesByStudentId(HttpServletRequest httpServletRequest, Integer studentId, Integer courseId) {
+        employeeMapper.insertStudentLinkCourse(courseId,studentId);
+        return BaseResponse.success("添加成功");
+    }
+    /*
+    院系负责人添加课程
+     */
+
+    @Override
+    public BaseResponse addCourse(HttpServletRequest httpServletRequest, String courseName) {
+        employeeMapper.addCourse(courseName);
+        return BaseResponse.success("添加成功");
     }
 
     @Override

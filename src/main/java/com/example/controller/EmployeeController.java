@@ -34,8 +34,8 @@ public class EmployeeController {
     //查询某学生成绩
 
     @GetMapping("/showStudentScore")
-    public BaseResponse showStudentScore(HttpServletRequest httpServletRequest, Integer studentId,String tableName,String subjectName){
-        return employeeService.showStudentScore(httpServletRequest,studentId,tableName,subjectName);
+    public BaseResponse showStudentScore(HttpServletRequest httpServletRequest, Integer studentId){
+        return employeeService.showStudentScore(httpServletRequest,studentId);
     }
     /*
     找回密码
@@ -53,6 +53,14 @@ public class EmployeeController {
         return employeeService.findMyStudent(httpServletRequest);
     }
 
+    /*
+    通过学生id导入课程（使用课程id）
+     */
+    @PostMapping("ImportCourses")
+    public BaseResponse importCoursesByStudentId(HttpServletRequest httpServletRequest,Integer studentId,Integer courseId){
+        return null;
+    }
+//
 
 //    ----------------------宿舍管理员-----------------------------
     /*
@@ -102,6 +110,15 @@ public class EmployeeController {
     public BaseResponse scoreCounselor(HttpServletRequest httpServletRequest,Integer counselorId,Double score){
 
         return employeeService.scoreCounselor(httpServletRequest,counselorId,score);
+    }
+
+    /*
+    添加科目
+     */
+    @PostMapping("/addCourse")
+    public BaseResponse addCourse(HttpServletRequest httpServletRequest,String courseName){
+
+        return employeeService.addCourse(httpServletRequest,courseName);
     }
 
     //----------------------学工管理器-----------------------------
