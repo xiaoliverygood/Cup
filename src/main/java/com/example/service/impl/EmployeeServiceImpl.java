@@ -15,6 +15,7 @@ import com.example.model.entity.Employee;
 import com.example.model.entity.Student;
 import com.example.model.vo.LoginEmployeeVo;
 import com.example.model.vo.StudentCardVo;
+import com.example.model.vo.queryAllStudentVo;
 import com.example.service.EmployeeService;
 import com.example.mapper.EmployeeMapper;
 import com.example.service.StudentService;
@@ -311,6 +312,10 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
 
         // 执行分页查询
         IPage<Student> studentPage = studentMapper.selectPage(page, null);
+
+        /*queryAllStudentVo queryAllStudentVo = BeanCopyUtils.copyBean(studentPage, queryAllStudentVo.class);
+        queryAllStudentVo.setRows(page.getRecords());*/
+
         return BaseResponse.success(studentPage);
     }
 
