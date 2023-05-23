@@ -1,7 +1,10 @@
 package com.example.service;
 
-import generator.domain.Course;
+
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.model.entity.Course;
+
+import java.util.List;
 
 /**
 * @author L
@@ -9,5 +12,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2023-05-23 09:37:12
 */
 public interface CourseService extends IService<Course> {
-
+/*
+获取所有课程
+ */
+    List<Course> getCourseList();
 }

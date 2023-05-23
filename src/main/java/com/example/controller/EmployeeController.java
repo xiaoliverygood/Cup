@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.common.BaseResponse;
 import com.example.model.dto.*;
+import com.example.service.CourseService;
 import com.example.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
+
+    @Autowired
+    CourseService courseService;
     @PostMapping("/register")
     public BaseResponse register(@RequestBody RegisterEmployeeDTO registerEmployeeDTO){
         return employeeService.register(registerEmployeeDTO);
@@ -58,7 +62,16 @@ public class EmployeeController {
      */
     @PostMapping("ImportCourses")
     public BaseResponse importCoursesByStudentId(HttpServletRequest httpServletRequest,Integer studentId,Integer courseId){
-        return null;
+        return employeeService.importCoursesByStudentId(httpServletRequest,studentId,courseId);
+    }
+
+    /*
+    查看所有课程
+     */
+
+    @GetMapping("/showAllCourses")
+    public BaseResponse showAllCourses(){
+        return BaseResponse.success(courseService.getCourseList());
     }
 //
 
