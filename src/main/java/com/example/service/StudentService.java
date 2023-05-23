@@ -2,6 +2,7 @@ package com.example.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.common.BaseResponse;
+import com.example.model.dto.FindPasswordDTO;
 import com.example.model.dto.LoginStudentDTO;
 import com.example.model.dto.RegisterStudentDTO;
 import com.example.model.dto.UpdateStudentDTO;
@@ -25,4 +26,13 @@ public interface StudentService extends IService<Student> {
 
     BaseResponse queryInfo(HttpServletRequest httpServletRequest);
 
+    /*
+    找回密码
+     */
+    BaseResponse findPassword(@RequestBody FindPasswordDTO findPasswordDTO);
+    /*
+    退出登录
+     */
+
+    BaseResponse logout(HttpServletRequest httpServletRequest);
 }

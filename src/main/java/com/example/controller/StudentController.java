@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.common.BaseResponse;
+import com.example.model.dto.FindPasswordDTO;
 import com.example.model.dto.LoginStudentDTO;
 import com.example.model.dto.RegisterStudentDTO;
 import com.example.model.dto.UpdateStudentDTO;
@@ -33,7 +34,18 @@ public class StudentController {
     public BaseResponse queryInfo(HttpServletRequest httpServletRequest){
         return studentService.queryInfo(httpServletRequest);
     }
+    /*
+    找回密码
+     */
+    @PutMapping("/findPassword")
+    public BaseResponse findPassword(@RequestBody FindPasswordDTO findPasswordDTO){
+        return studentService.findPassword(findPasswordDTO);
+    }
 
 
+    @PostMapping("/logout")
+    public BaseResponse logout(HttpServletRequest httpServletRequest){
+        return studentService.logout(httpServletRequest);
+    }
 
 }

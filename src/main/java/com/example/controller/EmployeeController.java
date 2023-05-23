@@ -46,7 +46,7 @@ public class EmployeeController {
      */
 
     @PutMapping("/findPassword")
-    public BaseResponse findPassword(@RequestBody FindPasswordEmployeeDTO findPasswordDTO){
+    public BaseResponse findPassword(@RequestBody FindPasswordDTO findPasswordDTO){
         return employeeService.findPassword(findPasswordDTO);
     }
     /*
@@ -148,5 +148,11 @@ public class EmployeeController {
     @GetMapping("/queryStudentList")
     public BaseResponse queryStudentList(Integer pageNum, Integer pageSize){
         return employeeService.queryStudentList(pageNum,pageSize);
+    }
+
+
+    @PostMapping("/logout")
+    public BaseResponse logout(HttpServletRequest httpServletRequest){
+        return employeeService.logout(httpServletRequest);
     }
 }

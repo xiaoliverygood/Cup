@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FindPasswordEmployeeDTO {
+public class FindPasswordDTO {
     /*
     邮箱
      */

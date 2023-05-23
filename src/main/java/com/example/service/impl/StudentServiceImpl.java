@@ -8,6 +8,7 @@ import com.example.common.BaseResponse;
 import com.example.mapper.DormitoryMapper;
 import com.example.mapper.LinkStuDormMapper;
 import com.example.mapper.StudentMapper;
+import com.example.model.dto.FindPasswordDTO;
 import com.example.model.dto.LoginStudentDTO;
 import com.example.model.dto.RegisterStudentDTO;
 import com.example.model.dto.UpdateStudentDTO;
@@ -182,7 +183,41 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper,Student> imple
     }
 
 
+    /*
+    找回密码
+     */
 
+    @Override
+    public BaseResponse findPassword(FindPasswordDTO findPasswordDTO) {
+        String correctPassword = CaptchaUtil.EmailAndCodeFindpassword.get(findPasswordDTO.getEmail());
+
+        if (correctPassword.equals(findPasswordDTO.getCode())) {
+
+            Student student =studentMapper.findStudentByEmail(findPasswordDTO.getEmail());
+
+            student.setPwd(findPasswordDTO.getNewPassword());
+
+            this.updateById(student);
+
+            CaptchaUtil.EmailAndCodeFindpassword.remove(findPasswordDTO.getEmail());
+
+            return BaseResponse.success(student);
+
+        } else {
+
+            return BaseResponse.Error(AppHttpCodeEnum.NO_OPERATOR_AUTH, findPasswordDTO);
+        }
+    }
+
+    /*
+    退出登录
+     */
+
+    @Override
+    public BaseResponse logout(HttpServletRequest httpServletRequest) {
+        template.delete(httpServletRequest.getHeader("token"));
+        return BaseResponse.success("成功退出登录");
+    }
 }
 
 

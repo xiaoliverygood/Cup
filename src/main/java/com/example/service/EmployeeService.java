@@ -35,7 +35,7 @@ public interface EmployeeService extends IService<Employee> {
     找回密码
      */
 
-    BaseResponse findPassword(@RequestBody FindPasswordEmployeeDTO findPasswordDTO);
+    BaseResponse findPassword(@RequestBody FindPasswordDTO findPasswordDTO);
 
     /*
     查询我的学生
@@ -83,6 +83,11 @@ public interface EmployeeService extends IService<Employee> {
     BaseResponse updateStudent(UpdateStudentByEmpDTO updateStudentByEmpDTO, HttpServletRequest httpServletRequest);
 
     BaseResponse queryStudentList(Integer pageNum, Integer pageSize);
+    /*
+    退出登录
+     */
+
+    BaseResponse logout(HttpServletRequest httpServletRequest);
 
     /*
     通过学生id，课程id进行建立联系，也就是学生添加课程

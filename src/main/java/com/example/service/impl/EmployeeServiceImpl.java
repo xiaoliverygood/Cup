@@ -146,7 +146,7 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     }
 
     @Override
-    public BaseResponse findPassword(FindPasswordEmployeeDTO findPasswordDTO) {
+    public BaseResponse findPassword(FindPasswordDTO findPasswordDTO) {
         String correctPassword = CaptchaUtil.EmailAndCodeFindpassword.get(findPasswordDTO.getEmail());
 
         if (correctPassword.equals(findPasswordDTO.getCode())) {
@@ -156,6 +156,8 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
             employee.setPwd(findPasswordDTO.getNewPassword());
 
             this.updateById(employee);
+
+            CaptchaUtil.EmailAndCodeFindpassword.remove(findPasswordDTO.getEmail());
 
             return BaseResponse.success(employee);
 
@@ -305,4 +307,13 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         return BaseResponse.success(studentList);
     }
 
+    /*
+    退出登录
+     */
+
+    @Override
+    public BaseResponse logout(HttpServletRequest httpServletRequest) {
+        template.delete(httpServletRequest.getHeader("token"));
+        return BaseResponse.success("退出成功");
+    }
 }
