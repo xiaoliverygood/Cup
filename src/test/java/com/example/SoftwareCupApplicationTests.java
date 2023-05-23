@@ -2,6 +2,7 @@ package com.example;
 
 import com.example.mapper.EmployeeMapper;
 import com.example.model.entity.CourseBeUseSeearch;
+import com.example.service.CourseService;
 import com.example.service.StudentService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ class SoftwareCupApplicationTests {
 	StringRedisTemplate stringRedisTemplate;
 	@Autowired
 	EmployeeMapper employeeMapper;
+	@Autowired
+	CourseService courseService;
 	@Test
 	void contextLoads() {
 //	studentMapper.selectById(1);
@@ -30,8 +33,10 @@ class SoftwareCupApplicationTests {
 		//System.out.println(studentMapper.getStudentById(1));
 	//	stringRedisTemplate.opsForValue().set("wwuwww","大家环球");//测试redi
 
-		List<CourseBeUseSeearch> courseBeUseSeearchScoreList = employeeMapper.getCourseScoreList(1);
-		System.out.println(courseBeUseSeearchScoreList);
+//		List<CourseBeUseSeearch> courseBeUseSeearchScoreList = employeeMapper.getCourseScoreList(1);
+//		System.out.println(courseBeUseSeearchScoreList);
+
+		employeeMapper.insertStudentLinkCourse(66,99);
 	}
 
 }

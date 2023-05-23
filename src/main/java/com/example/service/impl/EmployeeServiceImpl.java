@@ -23,6 +23,7 @@ import com.example.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -96,7 +97,7 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     @Override
     public BaseResponse showMyMessage(HttpServletRequest httpServletRequest) {
 
-        Employee employee = employeeMapper.findEmployeeByEmail(template.opsForValue().get(httpServletRequest.getHeader("token")));
+        Employee employee = employeeMapper.selectById(template.opsForValue().get(httpServletRequest.getHeader("token")));
 
         return BaseResponse.success(employee);
     }
@@ -201,7 +202,8 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
 
         Dormitory dormitory = dormitoryMapper.selectById(repairEmployeeDTO.getIdDormitory());
 
-        if(dormitory.getRepair().isEmpty()) {
+
+        if(!StringUtils.hasText(dormitory.getRepair())) {
 
             dormitory.setRepair(repairEmployeeDTO.getRepairContent());
 
@@ -225,7 +227,8 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
 
         Dormitory dormitory = dormitoryMapper.selectById(violationEmployeeDTO.getIdDormitory());
 
-        if (dormitory.getViolation().isEmpty()) {
+
+        if ( !StringUtils.hasText(dormitory.getViolation())) {
 
             dormitory.setViolation(violationEmployeeDTO.getViolationStatus());
 
