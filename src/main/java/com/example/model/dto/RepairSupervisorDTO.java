@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RepairSupervisorDTO {
 
-    /*
+    /**
     宿舍id
      */
     private Integer idDormitory;
 
-    /*
+    /**
     报修内容
      */
     private String repairContent;

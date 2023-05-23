@@ -11,10 +11,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class CaptchaController {
     @Autowired
     CaptchaUtil captchaUtil;
+    /**
+     * 发送验证码的接口
+
+     */
     @GetMapping ("/captcha")
     public BaseResponse<String> getCaptcha(String email){
        return BaseResponse.success(captchaUtil.RigisterCode(email));
     }
+    /**
+     * 找回密码的验证码发送接口
+
+     */
     @GetMapping("/findPasswordCaptcha")
     public BaseResponse<String> findpasswordCaptcha(String emailAddress){
         return BaseResponse.success(captchaUtil.findPasswordCode(emailAddress));
