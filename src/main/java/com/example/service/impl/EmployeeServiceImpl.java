@@ -135,6 +135,16 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         employeeMapper.insertStudentLinkCourse(courseId,studentId);
         return BaseResponse.success("添加成功");
     }
+
+    @Override
+    public BaseResponse deleteUser(Integer id) {
+        if (id>=2000){
+            employeeMapper.deleteById(id);
+        }else
+            studentMapper.deleteById(id);
+
+        return BaseResponse.success("删除成功");
+    }
     /*
     院系负责人添加课程
      */
@@ -296,15 +306,12 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     @Override
     public BaseResponse queryStudentList(Integer pageNum, Integer pageSize) {
 
-        //分页查询
-        Page<Student> page = new Page<>(pageNum,pageSize);
+        // 创建分页对象
+        Page<Student> page = new Page<>(pageNum, pageSize);
 
-        IPage<Student> studentPage = studentMapper.selectPage(page,null); // 执行分页查询
-
-        List<Student> studentList = studentPage.getRecords(); // 获取查询结果列表
-        //long total = studentPage.getTotal(); // 获取总记录数
-
-        return BaseResponse.success(studentList);
+        // 执行分页查询
+        IPage<Student> studentPage = studentMapper.selectPage(page, null);
+        return BaseResponse.success(studentPage);
     }
 
     /*

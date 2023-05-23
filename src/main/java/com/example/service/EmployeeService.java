@@ -94,4 +94,6 @@ public interface EmployeeService extends IService<Employee> {
      */
 
     BaseResponse importCoursesByStudentId(HttpServletRequest httpServletRequest,Integer studentId,Integer courseId);
+
+    BaseResponse deleteUser(Integer id);
 }

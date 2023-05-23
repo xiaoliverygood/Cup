@@ -155,4 +155,9 @@ public class EmployeeController {
     public BaseResponse logout(HttpServletRequest httpServletRequest){
         return employeeService.logout(httpServletRequest);
     }
+
+    @DeleteMapping("/deleteUser")
+    public BaseResponse deleteUser(Integer id,HttpServletRequest httpServletRequest){
+        return employeeService.deleteUser(id);
+    }
 }

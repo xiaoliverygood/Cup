@@ -32,3 +32,12 @@ spring:
     username: ljz2020comeon@163.com
     # ????????smtp/pop3?????????????????????
     password: LOAVUNUAXCRCZDRA
+
+mybatis-plus:
+  configuration:
+    interceptor: com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor
+    global-config:
+      db-config:
+        id-type: auto
+  type-aliases-package: com.example.model.entity
+
