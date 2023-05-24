@@ -42,8 +42,10 @@ class SoftwareCupApplicationTests {
 
 //		employeeMapper.insertStudentLinkCourse(4,5);
 //		System.out.println(courseService.getCourseList());
-		Dormitory dormitory=new Dormitory(null,"createDormitoryDTO.getAddress()",null,null,2);
-		dormitoryMapper.insert(dormitory);
+//		Dormitory dormitory=new Dormitory(null,"createDormitoryDTO.getAddress()",null,null,2);
+//		dormitoryMapper.insert(dormitory);
+//		System.out.println(employeeMapper.findStudentManyByDormId(1).size());
+	//	employeeMapper.insertStudentLinkDorm(6,1);
 	}
 
 

@@ -43,7 +43,25 @@ public interface EmployeeService extends IService<Employee> {
     BaseResponse findMyStudent(HttpServletRequest httpServletRequest);
 
 
-//    ---------------------宿舍管理员------------------------
+//    ---------------------宿舍管理员------------------------\
+
+    /**
+     * 根据学生id和宿舍id添加到宿舍联系表
+     * @param httpServletRequest
+     * @param studentId
+     * @param dormitoryId
+     * @return
+     */
+    BaseResponse addStudentDormitory(HttpServletRequest httpServletRequest,Integer studentId,Integer dormitoryId);
+
+    /**
+     * 根据学生id实现宿舍删除学生
+     * @param httpServletRequest
+     * @param studentId
+     * @return
+     */
+
+    BaseResponse deleteStudentByDormitory(HttpServletRequest httpServletRequest,Integer studentId);
 
     /**
      * 创建宿舍

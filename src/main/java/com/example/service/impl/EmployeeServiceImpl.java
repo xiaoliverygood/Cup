@@ -15,7 +15,6 @@ import com.example.model.entity.Employee;
 import com.example.model.entity.Student;
 import com.example.model.vo.LoginEmployeeVo;
 import com.example.model.vo.StudentCardVo;
-import com.example.model.vo.queryAllStudentVo;
 import com.example.service.EmployeeService;
 import com.example.mapper.EmployeeMapper;
 import com.example.service.StudentService;
@@ -49,6 +48,8 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     StudentMapper studentMapper;
     @Autowired
     DormitoryMapper dormitoryMapper;
+    @Autowired
+    JudgementStudentMany judgementStudentMany;
 
     @Override
     public BaseResponse register(RegisterEmployeeDTO registerEmployeeDTO) {
@@ -124,7 +125,9 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     //查询所有科目以及成绩
     @Override
     public BaseResponse showStudentScore(HttpServletRequest httpServletRequest, Integer studentId) {
+
         List<CourseBeUseSeearch> courseBeUseSeearchScoreList = employeeMapper.getCourseScoreList(studentId);
+
         return BaseResponse.success(courseBeUseSeearchScoreList);
     }
 
@@ -134,15 +137,17 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
 
     @Override
     public BaseResponse importCoursesByStudentId(HttpServletRequest httpServletRequest, Integer studentId, Integer courseId) {
-        employeeMapper.insertStudentLinkCourse(courseId,studentId);
+
+        employeeMapper.insertStudentLinkCourse(courseId, studentId);
+
         return BaseResponse.success("添加成功");
     }
 
     @Override
     public BaseResponse deleteUser(Integer id) {
-        if (id>=2000){
+        if (id >= 2000) {
             employeeMapper.deleteById(id);
-        }else
+        } else
             studentMapper.deleteById(id);
 
         return BaseResponse.success("删除成功");
@@ -153,7 +158,9 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
 
     @Override
     public BaseResponse addCourse(HttpServletRequest httpServletRequest, String courseName) {
+
         employeeMapper.addCourse(courseName);
+
         return BaseResponse.success("添加成功");
     }
 
@@ -185,21 +192,64 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
 
     @Override
     public BaseResponse findMyStudent(HttpServletRequest httpServletRequest) {
-       Employee employee =this.getById(getUserUtils.getId(httpServletRequest));
+        Employee employee = this.getById(getUserUtils.getId(httpServletRequest));
 
-       List<Student> studentList=employeeMapper.findStudentByTeacherId(employee.getId());//通过我的id查询我的学生
+        List<Student> studentList = employeeMapper.findStudentByTeacherId(employee.getId());//通过我的id查询我的学生
 
         return BaseResponse.success(studentList);
     }
 
 //    -------宿舍管理员---------------
 
+    /**
+     * 宿舍添加学生信息，也就是宿舍学生联系表
+     *
+     * @param httpServletRequest
+     * @param studentId
+     * @param dormitoryId
+     * @return
+     */
+
+    @Override
+    public BaseResponse addStudentDormitory(HttpServletRequest httpServletRequest, Integer studentId, Integer dormitoryId) {
+
+        if (judgementStudentMany.judgeStudentMany(dormitoryId)) {
+
+            employeeMapper.insertStudentLinkDorm(studentId, dormitoryId);
+
+            return BaseResponse.success("添加成功");
+
+        } else {
+
+            return BaseResponse.Error(AppHttpCodeEnum.SYSTEM_ERROR, "宿舍满人了");
+        }
+    }
+
+    /**
+     * 根据学生id删除学生信息
+     *
+     * @param httpServletRequest
+     * @param studentId
+     * @return
+     */
+
+    @Override
+    public BaseResponse deleteStudentByDormitory(HttpServletRequest httpServletRequest, Integer studentId) {
+
+        employeeMapper.deleteStudentLinkDorm(studentId);
+
+        return BaseResponse.success("删除成功");
+
+    }
 
     @Override
     public BaseResponse createDormitory(HttpServletRequest httpServletRequest, CreateDormitoryDTO createDormitoryDTO) {
-        Dormitory dormitory=new Dormitory(null,createDormitoryDTO.getAddress(),null,null,createDormitoryDTO.getMaxStudent());
-       dormitoryMapper.insert(dormitory);
-       return BaseResponse.success("宿舍新建成功");
+
+        Dormitory dormitory = new Dormitory(null, createDormitoryDTO.getAddress(), null, null, createDormitoryDTO.getMaxStudent());
+
+        dormitoryMapper.insert(dormitory);
+
+        return BaseResponse.success("宿舍新建成功");
     }
 
     /*
@@ -211,15 +261,15 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         Dormitory dormitory = dormitoryMapper.selectById(repairEmployeeDTO.getIdDormitory());
 
 
-        if(!StringUtils.hasText(dormitory.getRepair())) {
+        if (!StringUtils.hasText(dormitory.getRepair())) {
 
             dormitory.setRepair(repairEmployeeDTO.getRepairContent());
 
-        }else {
+        } else {
 
             String beforeContent = dormitory.getRepair();
 
-            dormitory.setRepair(beforeContent  + repairEmployeeDTO.getRepairContent());
+            dormitory.setRepair(beforeContent + repairEmployeeDTO.getRepairContent());
         }
         dormitoryMapper.updateById(dormitory);
 
@@ -236,7 +286,7 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         Dormitory dormitory = dormitoryMapper.selectById(violationEmployeeDTO.getIdDormitory());
 
 
-        if ( !StringUtils.hasText(dormitory.getViolation())) {
+        if (!StringUtils.hasText(dormitory.getViolation())) {
 
             dormitory.setViolation(violationEmployeeDTO.getViolationStatus());
 
@@ -245,7 +295,7 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
             return BaseResponse.success(dormitory);
         }
 
-        dormitory.setViolation(violationEmployeeDTO.getViolationStatus()+dormitory.getViolation());
+        dormitory.setViolation(violationEmployeeDTO.getViolationStatus() + dormitory.getViolation());
 
         dormitoryMapper.updateById(dormitory);
 
@@ -270,9 +320,9 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     @Override
     public BaseResponse getLeaveAllStudent(HttpServletRequest httpServletRequest) {
 
-      List<Student> students =employeeMapper.findInSchoolStudent();
+        List<Student> students = employeeMapper.findInSchoolStudent();
 
-      return BaseResponse.success(students);
+        return BaseResponse.success(students);
     }
 
     /*
@@ -280,7 +330,7 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
      */
 
     @Override
-    public BaseResponse scoreCounselor(HttpServletRequest httpServletRequest, Integer counselorId,Double score) {
+    public BaseResponse scoreCounselor(HttpServletRequest httpServletRequest, Integer counselorId, Double score) {
 
         Employee counselor = this.getById(counselorId);
 

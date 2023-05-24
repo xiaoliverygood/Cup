@@ -5,10 +5,7 @@ import com.example.model.entity.Dormitory;
 import com.example.model.entity.Employee;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.model.entity.Student;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -60,6 +57,15 @@ public interface EmployeeMapper extends BaseMapper<Employee> {
 
     @Insert("INSERT INTO link_stu_course( `class_id`, `student_id`, `student_score`) VALUES ( #{classId}, #{studentId},null)")
     void insertStudentLinkCourse(@Param("classId") Integer classId, @Param("studentId") Integer studentId);
+
+    @Delete("DELETE FROM link_stu_dorm WHERE stu_id=#{studentId}")
+    void deleteStudentLinkDorm(@Param("studentId") Integer studentId);
+
+    @Select("select stu_id from link_stu_dorm where dorm_id=#{dormId}")
+    List<Integer> findStudentManyByDormId(@Param("dormId") Integer dormId);
+
+    @Insert("INSERT INTO link_stu_dorm(`stu_id`,`dorm_id`) VALUES (#{studentId},#{dormId})")
+    void insertStudentLinkDorm(@Param("studentId") Integer studentId, @Param("dormId") Integer dormId);
 }
 
 
