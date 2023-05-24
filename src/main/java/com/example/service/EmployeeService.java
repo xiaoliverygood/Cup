@@ -45,6 +45,12 @@ public interface EmployeeService extends IService<Employee> {
 
 //    ---------------------宿舍管理员------------------------
 
+    /**
+     * 创建宿舍
+
+     */
+    BaseResponse createDormitory(HttpServletRequest httpServletRequest,@RequestBody CreateDormitoryDTO createDormitoryDTO);
+
     /*
     宿舍管理员：报修宿舍
      */

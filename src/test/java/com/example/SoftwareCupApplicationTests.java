@@ -1,8 +1,10 @@
 package com.example;
 
 import com.example.common.BaseResponse;
+import com.example.mapper.DormitoryMapper;
 import com.example.mapper.EmployeeMapper;
 import com.example.model.entity.CourseBeUseSeearch;
+import com.example.model.entity.Dormitory;
 import com.example.model.entity.Student;
 import com.example.service.CourseService;
 import com.example.service.StudentService;
@@ -26,6 +28,8 @@ class SoftwareCupApplicationTests {
 	EmployeeMapper employeeMapper;
 	@Autowired
 	CourseService courseService;
+	@Autowired
+	DormitoryMapper dormitoryMapper;
 	@Test
 	void contextLoads() {
 //		System.out.println(employeeMapper.getCourseScoreList(5));
@@ -37,8 +41,9 @@ class SoftwareCupApplicationTests {
 //		System.out.println(CaptchaUtil.EmailAndCode.get("email"));
 
 //		employeeMapper.insertStudentLinkCourse(4,5);
-		System.out.println(courseService.getCourseList());
-
+//		System.out.println(courseService.getCourseList());
+		Dormitory dormitory=new Dormitory(null,"createDormitoryDTO.getAddress()",null,null,2);
+		dormitoryMapper.insert(dormitory);
 	}
 
 

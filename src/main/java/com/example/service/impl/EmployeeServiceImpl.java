@@ -194,9 +194,17 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
 
 //    -------宿舍管理员---------------
 
-/*
-宿舍报修
- */
+
+    @Override
+    public BaseResponse createDormitory(HttpServletRequest httpServletRequest, CreateDormitoryDTO createDormitoryDTO) {
+        Dormitory dormitory=new Dormitory(null,createDormitoryDTO.getAddress(),null,null,createDormitoryDTO.getMaxStudent());
+       dormitoryMapper.insert(dormitory);
+       return BaseResponse.success("宿舍新建成功");
+    }
+
+    /*
+    宿舍报修
+     */
     @Override
     public BaseResponse repair(HttpServletRequest httpServletRequest, RepairSupervisorDTO repairEmployeeDTO) {
 

@@ -115,6 +115,15 @@ public class EmployeeController {
 //
 
 //    ----------------------宿舍管理员-----------------------------
+
+    /**
+     * 创建宿舍，也就是新增宿舍
+     */
+    @PostMapping("/createDormitory")
+    public BaseResponse createDormitory(HttpServletRequest httpServletRequest,@RequestBody CreateDormitoryDTO createDormitoryDTO){
+
+        return employeeService.createDormitory(httpServletRequest,createDormitoryDTO);
+    }
     /**
     宿舍报修：修改宿舍表保修字段（宿舍管理员）
      */
