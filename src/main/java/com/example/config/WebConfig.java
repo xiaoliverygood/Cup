@@ -17,8 +17,8 @@ public class WebConfig implements WebMvcConfigurer {
                "/captcha",
                        "/findPasswordCaptcha","/Student/register","/Student/login"
                        ,"/Employee/register","/Employee/login"
-                               +"/Employee/findPassword"
-               +"/Student/findPassword");
+                               ,"/Employee/findPassword"
+                               ,"/Student/findPassword");
     }
 
 }
