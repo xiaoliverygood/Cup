@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UpdateStudentDTO {
 
-    private Integer id;
     /**
      * 密码
      */

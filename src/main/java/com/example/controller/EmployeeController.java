@@ -137,7 +137,7 @@ public class EmployeeController {
 
     //----------------------学工管理器-----------------------------
     @GetMapping("/queryStudentById")
-    public BaseResponse addStudent(Integer id , HttpServletRequest httpServletRequest){
+    public BaseResponse queryStudent(Integer id , HttpServletRequest httpServletRequest){
         return employeeService.queryStudentById(id);
     }
 

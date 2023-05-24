@@ -21,6 +21,7 @@ import com.example.service.EmployeeService;
 import com.example.service.LinkStuEmpService;
 import com.example.service.StudentService;
 import com.example.utils.*;
+import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -99,32 +100,14 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper,Student> imple
 
     @Override
     public BaseResponse updateInfo(UpdateStudentDTO updateStudentDTO, HttpServletRequest httpServletRequest) {
-        //updateById()
-
         //根据token找到对应学生
-        Student student = studentMapper.selectById(Integer.valueOf(template.opsForValue().get(httpServletRequest.getHeader("token"))));
-        Integer id = getUserUtils.getId(httpServletRequest);
+        Student student = BeanCopyUtils.copyBean(updateStudentDTO, Student.class);
+        //设置对应的学生id
+        student.setId(getUserUtils.getId(httpServletRequest));
+        //根据id更新到数据库
+        updateById(student);
 
-        //修改该学生的信息
-        //如果DTO密码不为空,则修改密码
-        if (StringUtils.hasText(updateStudentDTO.getPwd())){
-            student.setPwd(updateStudentDTO.getPwd());
-        }
-        //如果DTO手机号不为空,则修改手机号
-        if (StringUtils.hasText(updateStudentDTO.getPhone())){
-            student.setPhone(updateStudentDTO.getPhone());
-        }
-        //如果DTO邮箱不为空,则修改邮箱
-        if (StringUtils.hasText(updateStudentDTO.getEmail())){
-            student.setEmail(updateStudentDTO.getEmail());
-        }
-        //是否留校默认为0,修改后不管是0还是1都直接保存进数据库
-        student.setInSchool(updateStudentDTO.getInSchool());
-
-        //更新到数据库
-        studentMapper.updateById(student);
-
-        return BaseResponse.success("ok");
+        return BaseResponse.success("修改成功");
     }
 
     @Override
