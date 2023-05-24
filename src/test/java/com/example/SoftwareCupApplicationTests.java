@@ -1,9 +1,12 @@
 package com.example;
 
+import com.example.common.BaseResponse;
 import com.example.mapper.EmployeeMapper;
 import com.example.model.entity.CourseBeUseSeearch;
+import com.example.model.entity.Student;
 import com.example.service.CourseService;
 import com.example.service.StudentService;
+import com.example.utils.CaptchaUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,18 +28,18 @@ class SoftwareCupApplicationTests {
 	CourseService courseService;
 	@Test
 	void contextLoads() {
-//	studentMapper.selectById(1);
-//		Integer a=1;
-//		Student student = new Student();
-//		student.setId(2);
-//		System.out.println(studentService.getById(1));
-		//System.out.println(studentMapper.getStudentById(1));
-	//	stringRedisTemplate.opsForValue().set("wwuwww","大家环球");//测试redi
+//		System.out.println(employeeMapper.getCourseScoreList(5));
+//		System.out.println(courseService.getCourseList());
+//		List<CourseBeUseSeearch> courseBeUseSeearchScoreList = employeeMapper.getCourseScoreList(5);
+//		System.out.println(BaseResponse.success(courseBeUseSeearchScoreList));
+//		CaptchaUtil.EmailAndCode.put("email","qwq");
+//		CaptchaUtil.EmailAndCode.put("email","qwwwww");
+//		System.out.println(CaptchaUtil.EmailAndCode.get("email"));
 
-//		List<CourseBeUseSeearch> courseBeUseSeearchScoreList = employeeMapper.getCourseScoreList(1);
-//		System.out.println(courseBeUseSeearchScoreList);
+//		employeeMapper.insertStudentLinkCourse(4,5);
+		System.out.println(courseService.getCourseList());
 
-		employeeMapper.insertStudentLinkCourse(66,99);
 	}
+
 
 }

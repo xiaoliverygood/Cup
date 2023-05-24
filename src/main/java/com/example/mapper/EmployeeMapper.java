@@ -59,7 +59,7 @@ public interface EmployeeMapper extends BaseMapper<Employee> {
      */
 
     @Insert("INSERT INTO link_stu_course( `class_id`, `student_id`, `student_score`) VALUES ( #{classId}, #{studentId},null)")
-    Void insertStudentLinkCourse(@Param("classId") Integer classId, @Param("studentId") Integer studentId);
+    void insertStudentLinkCourse(@Param("classId") Integer classId, @Param("studentId") Integer studentId);
 }
 
 

@@ -16,7 +16,9 @@ public class WebConfig implements WebMvcConfigurer {
                .excludePathPatterns(
                "/captcha",
                        "/findPasswordCaptcha","/Student/register","/Student/login"
-                       ,"/Employee/register","/Employee/login");
+                       ,"/Employee/register","/Employee/login"
+                               +"/Employee/findPassword"
+               +"/Student/findPassword");
     }
 
 }
