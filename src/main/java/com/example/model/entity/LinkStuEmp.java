@@ -29,6 +29,10 @@ public class LinkStuEmp {
     private Integer empId;
 
 
+    public LinkStuEmp(Integer stuId, Integer empId){
+        this.stuId = stuId;
+        this.empId = empId;
+    }
 
 }
 

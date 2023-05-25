@@ -120,4 +120,8 @@ public interface EmployeeService extends IService<Employee> {
     BaseResponse importCoursesByStudentId(HttpServletRequest httpServletRequest,Integer studentId,Integer courseId);
 
     BaseResponse deleteUser(Integer id);
+
+    BaseResponse updateLinkStuEmp(UpdateLinkStuEmpDTO updateLinkStuEmpDTO,HttpServletRequest httpServletRequest);
+
+    BaseResponse addLinkStuEmp(Integer sId, Integer eId, HttpServletRequest httpServletRequest);
 }

@@ -228,10 +228,23 @@ public class EmployeeController {
     /**
      * 学生处管理：通过学生id修改学生信息（id必选，要改什么传什么）
      *
-     * @param updateStudentByEmpDTO
+     * updateStudentByEmpDTO
      * @param httpServletRequest
      * @return
      */
+
+    @PutMapping("/updateLinkStuEmp")
+    public BaseResponse updateLinkStuEmp(@RequestBody UpdateLinkStuEmpDTO updateLinkStuEmpDTO,HttpServletRequest httpServletRequest){
+        return employeeService.updateLinkStuEmp(updateLinkStuEmpDTO,httpServletRequest);
+    }
+
+    @PostMapping("/addLinkStuEmp")
+    public BaseResponse addLinkStuEmp(Integer sId,Integer eId,HttpServletRequest httpServletRequest){
+        return  employeeService.addLinkStuEmp(sId,eId,httpServletRequest);
+    }
+
+
+
 
     @PutMapping("/updateStudent")
     public BaseResponse updateStudent(@RequestBody UpdateStudentByEmpDTO updateStudentByEmpDTO, HttpServletRequest httpServletRequest) {

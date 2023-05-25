@@ -9,14 +9,12 @@ import com.example.common.BaseResponse;
 import com.example.mapper.DormitoryMapper;
 import com.example.mapper.StudentMapper;
 import com.example.model.dto.*;
-import com.example.model.entity.CourseBeUseSeearch;
-import com.example.model.entity.Dormitory;
-import com.example.model.entity.Employee;
-import com.example.model.entity.Student;
+import com.example.model.entity.*;
 import com.example.model.vo.LoginEmployeeVo;
 import com.example.model.vo.StudentCardVo;
 import com.example.service.EmployeeService;
 import com.example.mapper.EmployeeMapper;
+import com.example.service.LinkStuEmpService;
 import com.example.service.StudentService;
 import com.example.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +46,8 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     StudentMapper studentMapper;
     @Autowired
     DormitoryMapper dormitoryMapper;
+    @Autowired
+    LinkStuEmpService linkStuEmpService;
     @Autowired
     JudgementStudentMany judgementStudentMany;
 
@@ -152,6 +152,41 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
 
         return BaseResponse.success("删除成功");
     }
+
+    @Override
+    public BaseResponse updateLinkStuEmp(UpdateLinkStuEmpDTO updateLinkStuEmpDTO,HttpServletRequest httpServletRequest) {
+        /*
+         *   学生id
+         *   sId+eId+afterEid:为学生修改对应的职工
+         *   sId+eId+afterSid:为职工修改对应的学生
+         */
+
+        LambdaQueryWrapper<LinkStuEmp> queryWrapper = new LambdaQueryWrapper<>();
+        if (StringUtils.hasText(String.valueOf(updateLinkStuEmpDTO.getAfterEid()))){
+            //传来sId,eId,AfterEid:根据学生id找记录
+            queryWrapper.eq(LinkStuEmp::getStuId, updateLinkStuEmpDTO.getSId());
+            //找到对应数据,为该对象修改对应的信息
+            LinkStuEmp linkStuEmp = linkStuEmpService.getOne(queryWrapper);
+            linkStuEmp.setEmpId(updateLinkStuEmpDTO.getAfterEid());
+        }else if (StringUtils.hasText(String.valueOf(updateLinkStuEmpDTO.getAfterSid()))){
+            //传来Eid,AfterSid:根据职工id找数据
+            queryWrapper.eq(LinkStuEmp::getEmpId,updateLinkStuEmpDTO.getEId());
+            LinkStuEmp linkStuEmp = linkStuEmpService.getOne(queryWrapper);
+            linkStuEmp.setEmpId(updateLinkStuEmpDTO.getAfterSid());
+        }
+        return BaseResponse.success("修改成功");
+    }
+
+    @Override
+    public BaseResponse addLinkStuEmp(Integer sId, Integer eId, HttpServletRequest httpServletRequest) {
+        linkStuEmpService.save(new LinkStuEmp(sId,eId));
+
+        return BaseResponse.success("增加成功");
+    }
+
+
+
+
     /*
     院系负责人添加课程
      */
